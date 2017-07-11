@@ -25,18 +25,25 @@
     #random {
       margin-right: 20px;
     }
+    #display {
+      width: 50%;
+      margin-top:20px;
+    }
 
     </style>
   </head>
   <body>
     <div class="bg-faded text-center container rounded" id="main">
+      <h1 class="text-success">Wikipedia Viewer</h1>
       <nav class="navbar navbar-light bg-faded">
       <form class="form-inline justify-content-center">
         <a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank" id="random" class="btn btn-outline-success">Random Article</a>
-        <input class="form-control" type="text" placeholder="Search a keyword">
-        <i class="fa fa-search fa-2x btn btn-search" aria-hidden="true"></i>
+        <input class="form-control" type="text" placeholder="Search a keyword" id="input">
+        <label class="btn" id="icon"><i class="fa fa-search fa-2x" aria-hidden="true"></i></label>
       </form>
       </nav>
+    </div>
+    <div class="container" id="display">
     </div>
 
 
@@ -46,6 +53,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script type="text/javascript">
+    $("#icon").click(function() {
+      $("#main").css("margin-top", "30px");
+      if ($("#input").val()) {
+
+      } else {
+        $("#display").html('<p class="alert alert-danger" role="alert"><strong>Oh snap!</strong> Please do enter a keyword to search again!</p>');
+      }
+    });
 
     </script>
 
