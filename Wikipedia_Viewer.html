@@ -46,23 +46,37 @@
     <div class="container" id="display">
     </div>
 
-
-
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script type="text/javascript">
-    $("#icon").click(function() {
-      $("#main").css("margin-top", "30px");
-      if ($("#input").val()) {
-
+    $(document).ready(function() {
+      $("#icon").click(function() {
+        $("#main").css("margin-top", "30px");
+        if ($("#input").val()) {
+          function getArticle() {
+          var userInput = $("#input").val();
+          var api = "https://cors-anywhere.herokuapp.com/https://en.wikipedia.org/w/api.php?action=opensearch&search=" + userInput + "&limit=10&namespace=0";
+          $.getJSON(api, function(response) {
+             console.log(response);
+             if (response[1].length == 0) {
+                 $("#display").html('<p class="alert alert-danger" role="alert">Oops! No search results returned! Please enter a different keyword and try again!</p>');
+             } else {
+                 $("#display").html("");
+                 for (i=0; i< response[1].length; i++) {
+                 $("#display").append('<p class="alert alert-success" role="alert"><a href="' + response[3][i] + '" class="alert-link" target="_blank">' + response[1][i] + '</a><br>'+ response[2][i] + '</p>');
+                 }
+            }
+         });
+        }
+        getArticle();
       } else {
-        $("#display").html('<p class="alert alert-danger" role="alert"><strong>Oh snap!</strong> Please do enter a keyword to search again!</p>');
+        $("#display").html('<p class="alert alert-danger" role="alert">Oh snap! Please do enter a keyword to search again!</p>');
       }
     });
+  });
 
     </script>
-
   </body>
 </html>
